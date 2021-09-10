@@ -1,0 +1,5 @@
+library(tidyverse)
+fnames_bf <- list.files("./audio/Bullfrog", full.names = T, patt = "*.wav")
+fnames_bg <- list.files("./audio/Non-bullfrog", full.names = T, patt = "*.wav")
+id <- c(rep(1, length(fnames_bf)), rep(0, length(fnames_bg))) %>% factor()
+fnames <- c(fnames_bf , fnames_bg)
