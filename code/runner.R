@@ -1,6 +1,10 @@
 # multiple implementations of a convolutional neural network for
 # classifying bullfrog calls from audio data
 
+library(reticulate)
+use_condaenv("keras-tf", required = T) # Activate before working with reticulate
+
+
 source("./code/001_load_original_data.R") ## 998 audio files
 # audio processing with a base-R workflow
 source("./code/002_process_original_audio.R") # 1996 audio files: 2 0.5s clips from the front of each .wav file
@@ -14,7 +18,7 @@ source("./code/002_process_original_audio.R") # 1996 audio files: 2 0.5s clips f
   mels <- 2595 * log10(1 + (freqs*1e3) / 700) # https://en.wikipedia.org/wiki/Mel_scale
   mels <- mels - min(mels)
   mels <- mels / max(mels)  
-  
+ 
   axis(1, at = seq(0, 1, by = .2), labels = seq(0, 0.5, by = 0.1))
   axis(2, at = mels, las = 2,
        labels = round(freqs, 2))
@@ -23,6 +27,7 @@ source("./code/002_process_original_audio.R") # 1996 audio files: 2 0.5s clips f
 #save(train, val, test, file = "prepAudio.RData")
 #load("prepAudio.RData")
 
+    
 source("./code/003_CNN_model_structure.R")
 summary(model)
 source("./code/004_CNN_train_original_data.R")
